@@ -2,18 +2,27 @@
 
 > Analyse internal package imports in a given path with `.py` files
 
-**Terminology**
+### Terminology
 * Dependents of x = Modules that import in x
 * Dependencies of x = Modules that x imports
 
-* Larger score means it is a dependency of other modules more
-    * "A dependency of a lot of modules"
-* Smaller score means it depends on other modules more
-    * "Depends on a lot of modules"
-* High proportion means most connections to other modules are its dependents
-* Low proportion means most connections to other modules are its dependencies
+### Example
 
-**Example output** for [koneko](https://github.com/twenty5151/koneko), using panda's `to_markdown()` method:
+**Columns**
+* 'Dependents' (of module m in row x) = number of modules that import in m
+* 'Dependencies' (of module m in row x) = number of modules that m imports
+* 'Score' = 'Dependents' column minus 'Dependencies' column
+* 'Proportion' = 'Dependents' column / ('Dependents' column + 'Dependencies' column) * 100
+
+**What does the numbers mean?**
+* A larger score means it is a dependency of other modules more
+    * "A dependency of a lot of modules"
+* A smaller score means it depends on other modules more
+    * "Depends on a lot of modules"
+* A high proportion means most connections to other modules are its dependents
+* A low proportion means most connections to other modules are its dependencies
+
+Example output for [koneko](https://github.com/twenty5151/koneko), using panda's `to_markdown()` method
 
 |                 |   Dependents |   Dependencies |   Score |   Proportion |
 |:----------------|-------------:|---------------:|--------:|-------------:|
