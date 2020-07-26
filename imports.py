@@ -61,7 +61,7 @@ def generate_df(dependents, dependencies):
     df = pd.DataFrame.from_dict(dependents, orient='index', columns=['Dependents'])
     df['Dependencies'] = dependencies.values()
     df['Score'] = df.Dependents - df.Dependencies
-    df['Proportion'] = df.Dependents / abs(df.Dependents + df.Dependencies) * 100
+    df['Proportion'] = df.Dependents / (df.Dependents + df.Dependencies) * 100
 
     df.sort_values('Proportion', inplace=True, ascending=False)
 
