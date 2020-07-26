@@ -51,6 +51,8 @@ Example output for [koneko](https://github.com/twenty5151/koneko), using panda's
 
 ## Installation & usage
 
+Note: this is currently not usable with other packages/modules/libraries yet, due to the first issue in [todo](#Todo)
+
 1. `git clone https://github.com/twenty5151/import-analyzer`
 2. `cd import-analyzer`
 3. `pip install -r requirements.txt`
@@ -60,6 +62,7 @@ Example output for [koneko](https://github.com/twenty5151/koneko), using panda's
 
 ## Todo
 
+* Automatically find assignments in `__init__.py`
 * Support `from . import ...`
 * Recursive discovery of files (currently only works on a flat directory structure)
 
