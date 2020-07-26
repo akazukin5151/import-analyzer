@@ -19,6 +19,7 @@
     * "A dependency of a lot of modules"
 * A smaller score means it depends on other modules more
     * "Depends on a lot of modules"
+* Note that a negative score doesn't mean it's "bad". It is good to split up your code into modules where they logically fit.
 * A high proportion means most connections to other modules are its dependents
 * A low proportion means most connections to other modules are its dependencies
 
