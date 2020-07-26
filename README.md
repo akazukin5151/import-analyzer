@@ -51,9 +51,10 @@ Example output for [koneko](https://github.com/twenty5151/koneko), using panda's
 
 ## Installation & usage
 
-1. Clone the repo and cd into it
-2. `pip install -r requirements.txt`
-3. `python imports.py -p {PATH_TO_FILES} -n {NAME_OF_PACKAGE}`
+1. `git clone https://github.com/twenty5151/import-analyzer`
+2. `cd import-analyzer`
+3. `pip install -r requirements.txt`
+4. `python imports.py -p {PATH_TO_FILES} -n {NAME_OF_PACKAGE}`
     * PATH_TO_FILES: the directory where your `.py` files are
     * NAME_OF_PACKAGE: usually the name of the above directory. Only the *internal* imports of your modules are analyzed, see `from {NAME_OF_PACKAGE} import ...`
 
