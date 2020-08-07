@@ -31,9 +31,10 @@ def get_imports(file_, package_name):
     ]
 
     # TODO: auto find assignments in __init__.py
-    result = replace_init(result, 'TERM')
-    result = replace_init(result, 'KONEKODIR')
     result = replace_init(result, '__version__')
+    result = replace_init(result, 'KONEKODIR')
+    result = replace_init(result, 'WELCOME_IMAGE')
+    result = replace_init(result, 'TERM')
     result = replace_init(result, 'FakeData')
     return result
 
