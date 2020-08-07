@@ -61,18 +61,17 @@ How can we decipher this mess? Well, every box/module has connections to and/or 
 
 ## Installation & usage
 
-Note: this is currently not usable with other packages/modules/libraries yet, due to the first issue in [todo](#Todo)
-
 1. `git clone https://github.com/twenty5151/import-analyzer`
 2. `cd import-analyzer`
 3. `pip install -r requirements.txt`
 4. `python imports.py -p {PATH_TO_FILES} -n {NAME_OF_PACKAGE}`
     * PATH_TO_FILES: the directory where your `.py` files are
     * NAME_OF_PACKAGE: usually the name of the above directory. Only the *internal* imports of your modules are analyzed, see `from {NAME_OF_PACKAGE} import ...`
+    * Optional argument:`-i {INIT_FILE}`
+        * INIT_FILE: the name of your init file, where constants are stored. Default is `__init__.py`
 
 ## Todo
 
-* Automatically find assignments in `__init__.py`
 * Support `from . import ...`
 * Recursive discovery of files (currently only works on a flat directory structure)
 

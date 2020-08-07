@@ -1,8 +1,24 @@
 import os
 import ast
+from pathlib import Path
 
 import click
 import pandas as pd
+
+
+def get_assignments_from_init(path):
+    with open(path, 'r') as f:
+        return get_assignments(f.read())
+
+
+def get_assignments(source):
+    parsed = ast.parse(source)
+    assigments = [x for x in parsed.body
+                  if type(x) is ast.Assign
+                  if x.col_offset == 0]
+
+    return [a.targets[0].id
+            for a in assigments]
 
 
 def replace_init(result, string):
@@ -14,7 +30,7 @@ def replace_init(result, string):
     return result
 
 
-def get_imports(file_, package_name):
+def get_imports(file_, package_name, assigments):
     with open(file_, 'r') as f:
         source = f.read()
 
@@ -30,21 +46,18 @@ def get_imports(file_, package_name):
         if item.module == package_name
     ]
 
-    # TODO: auto find assignments in __init__.py
-    result = replace_init(result, '__version__')
-    result = replace_init(result, 'KONEKODIR')
-    result = replace_init(result, 'WELCOME_IMAGE')
-    result = replace_init(result, 'TERM')
-    result = replace_init(result, 'FakeData')
+    for a in assigments:
+        result = replace_init(result, a)
+
     return result
 
 
-def get_all_imports(package_path, package_name):
+def get_all_imports(package_path, package_name, assigments):
     files = [f for f in os.listdir(package_path)
             if os.path.isfile(f'{package_path}/{f}')]
 
     return {
-        f: get_imports(f'{package_path}/{f}', package_name)
+        f: get_imports(f'{package_path}/{f}', package_name, assigments)
         for f in files
     }
 
@@ -71,10 +84,16 @@ def generate_df(dependents, dependencies):
 
 
 @click.command()
-@click.option('-p', '--package-path')
+@click.option('-p', '--package-path', type=Path)
 @click.option('-n', '--package-name')
-def main(package_path, package_name):
-    all_imports = get_all_imports(package_path, package_name)
+@click.option('-i', '--init_file', default='__init__.py')
+def main(package_path, package_name, init_file):
+    if init_file:
+        assigments = get_assignments_from_init(package_path / init_file)
+    else:
+        assigments = []
+
+    all_imports = get_all_imports(package_path, package_name, assigments)
 
     dependencies = {
         module: len(imports)
